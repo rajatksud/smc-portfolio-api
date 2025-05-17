@@ -19,7 +19,7 @@ jobs:
     - name: Deploy Using Appleboy SSH
       uses: appleboy/ssh-action@v0.1.8
       with:
-        host: ${{ secrets.SSH_HOST }}
+        host: "${{ secrets.SSH_HOST }}"
         username: ubuntu
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
