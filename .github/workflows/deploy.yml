@@ -25,6 +25,6 @@ jobs:
         script: |
           cd /home/ubuntu/smc-portfolio-api
           git pull origin main
-          npm install
-          pm2 restart server.js
+          npm ci
+          pm2 reload server.js
 
