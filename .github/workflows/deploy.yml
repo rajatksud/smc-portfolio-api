@@ -30,7 +30,7 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        ssh -o ubuntu@141.148.220.222 <<EOF
+        ssh ubuntu@141.148.220.222 <<EOF
         cd /home/ubuntu/smc-portfolio-api
         git pull origin main
         npm install
