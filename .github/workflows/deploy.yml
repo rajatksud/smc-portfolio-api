@@ -27,5 +27,4 @@ jobs:
           git pull origin main
           npm ci
           pm2 reload server.js
-           
 
