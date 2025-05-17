@@ -20,11 +20,11 @@ jobs:
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/fin_id_rsa
         chmod 600 ~/.ssh/fin_id_rsa
-        ssh-keyscan -H prjx3 >> ~/.ssh/known_hosts
+        ssh-keyscan -H 141.148.220.222 >> ~/.ssh/known_hosts
 
     - name: Deploy to Server
       run: |
-        ssh ubuntu@prjx3 <<EOF
+        ssh ubuntu@141.148.220.222 <<EOF
         cd /home/ubuntu/smc-portfolio-api
         git pull origin main
         npm install
