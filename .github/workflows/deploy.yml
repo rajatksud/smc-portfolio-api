@@ -1,0 +1,32 @@
+name: Deploy Portfolio API
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up SSH
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/fin_id_rsa
+        chmod 600 ~/.ssh/fin_id_rsa
+        ssh-keyscan -H prjx3 >> ~/.ssh/known_hosts
+
+    - name: Deploy to Server
+      run: |
+        ssh ubuntu@prjx3 <<EOF
+        cd /home/ubuntu/smc-portfolio-api
+        git pull origin main
+        npm install
+        pm2 restart server.js
+        EOF
