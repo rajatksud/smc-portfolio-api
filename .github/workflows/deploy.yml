@@ -10,21 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Get GitHub Runner IP
+      run: curl -s https://ifconfig.me
+
     - name: Checkout Repository
       uses: actions/checkout@v3
 
+    - name: Debug SSH Keyscan Output
+      run: ssh-keyscan -H 141.148.220.222
+
     - name: Set up SSH
       env:
-        SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
         mkdir -p ~/.ssh
-        printf "%s" "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+        printf "%s" "${{ secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 141.148.220.222 >> ~/.ssh/known_hosts
 
     - name: Deploy to Server
       run: |
-        ssh ubuntu@141.148.220.222 <<EOF
+        ssh -o ubuntu@141.148.220.222 <<EOF
         cd /home/ubuntu/smc-portfolio-api
         git pull origin main
         npm install
