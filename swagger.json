@@ -1,0 +1,103 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "SMC Portfolio API",
+        "version": "1.0.0",
+        "description": "API to fetch holdings, positions and perform position conversion via the SMC ACE API"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": ["http"],
+    "produces": ["application/json"],
+    "paths": {
+        "/holdings": {
+            "get": {
+                "summary": "Retrieve holdings",
+                "description": "Fetches holdings data from SMC ACE API",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "clientId",
+                        "description": "Your client identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "400": {
+                        "description": "Missing or invalid clientId"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/positions": {
+            "get": {
+                "summary": "Retrieve positions",
+                "description": "Fetches positions data from SMC ACE API",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "clientId",
+                        "description": "Your client identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response"
+                    },
+                    "400": {
+                        "description": "Missing or invalid clientId"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/position-conversion": {
+            "put": {
+                "summary": "Convert position",
+                "description": "Sends a position-conversion request to SMC ACE API",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "conversionRequest",
+                        "description": "Position conversion payload",
+                        "required": true,
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Conversion successful"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        }
+    }
+}
