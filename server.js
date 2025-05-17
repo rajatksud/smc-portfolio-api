@@ -2,12 +2,14 @@ const express = require("express");
 const axios = require("axios");
 const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./swagger.json");
+let swaggerDocument = require("./swagger.json");
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+// override Swagger “host” from an env var (e.g. SWAGGER_HOST=fin.fit-byte.com)
+swaggerDocument.host = process.env.SWAGGER_HOST || swaggerDocument.host;
 
 // SMC ACE API Credentials
 const API_KEY    = process.env.API_KEY;
